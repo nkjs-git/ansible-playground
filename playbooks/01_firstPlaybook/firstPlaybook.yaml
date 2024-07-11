@@ -1,0 +1,10 @@
+# To test ping on localhost of ansible control node
+---
+- name: My Test Playbook
+  hosts: localhost
+  tasks:
+  - name: Test connectivity
+    ping:
+  - name: Print Task
+    debug:
+      msg="Hello World!!"

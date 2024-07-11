@@ -1,0 +1,16 @@
+---
+- name: Update Cron-Job
+  hosts: apps
+  become: yes
+  tasks:
+  - name: Update Cron-Job
+    cron:
+      name: Test Job
+      minute: 20
+      hour: 18
+      day: '*'
+      month: '*'
+      weekday: '*'
+      user: nkjs
+      job: /home/nkjs/testScript.sh
+      disabled: yes # To disable the task

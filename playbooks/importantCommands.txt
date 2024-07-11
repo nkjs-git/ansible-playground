@@ -1,0 +1,17 @@
+ansible-inventory -l
+
+# ansible-playbook 
+
+ansible-playbook <playbook>
+
+su - <username>
+
+sudo adduser <username>
+
+sudo userdel <username>
+
+sudo addgroup <groupname>
+
+sudo adduser <username> <groupname>
+
+sudo chmod u+x <filename>

@@ -1,0 +1,13 @@
+---
+- name: Run a Script
+  hosts: apps
+  become: yes
+  tasks:
+  - name: Run the script
+    shell: ./testScript.sh >> test.log
+    args:
+      chdir: /home/nkjs
+      creates: test.log
+
+# In above playbook, the script ./testScript.sh has been already created on managed node at path /home/nkjs
+# and executable permission has been provided to file i.e. chmod u+x testScript.sh

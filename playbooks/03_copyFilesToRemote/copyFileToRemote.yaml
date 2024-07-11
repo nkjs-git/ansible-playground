@@ -1,0 +1,18 @@
+---
+- name: Copy files to remote
+  hosts: apps
+  become: yes
+  tasks:
+  - name: Copy files
+    copy:
+      src: ~/test.txt
+      dest: /tmp/        # /home/nkjs
+      owner: nkjs
+      group: nkjsgrp
+      mode: ugo=rw # mode: 0777
+      backup: true # will take a backup of older file at destination by renaming olderfile and creating new
+
+# Here when we only mention src and dest, the file will be copied with same user and group (i.e root) 
+# in dest as well
+# If we need to check the ownership and permission of the file in the dest, need to add other config as well
+# Here user nkjs and group nkjsgrp are present in dest machine

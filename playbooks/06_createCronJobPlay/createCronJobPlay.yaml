@@ -1,0 +1,20 @@
+---
+- name: Create Cron-Jobs
+  hosts: apps
+  become: yes
+  tasks:
+  - name: Create cron-job
+    cron:
+      name: Test job
+      minute: 12
+      hour: 18
+      day: '*'
+      month: '*'
+      weekday: '*'
+      user: nkjs
+      job: /home/nkjs/testScript.sh
+
+
+
+
+# Check if any cronjob exists for the user in prior by running command 'crontab -l'

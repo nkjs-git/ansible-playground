@@ -1,0 +1,10 @@
+---
+- name: Create Cron-Jobs
+  hosts: apps
+  become: yes
+  tasks:
+  - name: Delete a cron-job
+    cron:
+      name: Test job
+      user: nkjs
+      state: absent

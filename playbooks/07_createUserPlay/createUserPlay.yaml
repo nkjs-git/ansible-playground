@@ -1,0 +1,14 @@
+---
+- name: Create user on remote
+  hosts: apps
+  become: yes
+  tasks:
+  - name: Create user
+    user: 
+      name: testuser
+      comment: Test user addition
+      shell: /bin/bash  # Default shell for the user
+      home: /home/testu # Default home dir for the user
+      group: testusergrp,QA # Can be include multiple comma seperated multiple groups
+      # state: absent # to delete user
+      # remove: yes # also removes user data as well

@@ -1,0 +1,17 @@
+---
+- name: Create Cron-Jobs
+  hosts: apps
+  become: yes
+  tasks:
+  - name: Create cron-job
+    cron:
+      name: PATH
+      env: yes
+      user: nkjs
+      job: /home/nkjs/testScript.sh
+      insertbefore: PATH # To inser this ENV after previously existing ENV variable PATH
+      inserafter: PATH
+
+
+# This playbook task will create a environment variable in remote server which will be used by cronjobs
+# Can be seen at the start when we run command contab -l 

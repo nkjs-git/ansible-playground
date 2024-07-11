@@ -1,0 +1,34 @@
+---
+- name: File module example
+  hosts: apps
+  become: yes
+  tasks:
+  - name: Creating a file
+    file:
+      path: /home/nkjs/fileModuleTest.txt
+      state: touch
+      owner: nkjs
+      group: nkjsgrp
+      mode: u=rwx,g=rw,o=r
+
+  - name: Creating Directory
+    file:
+      path: /home/nkjs/testFolder
+      state: directory
+      owner: nkjs
+      group: nkjsgrp
+
+  - name: Creating Directory
+    file:
+      path: /home/nkjs/testFolder
+      state: absent
+
+  - name: Change permission of a file
+    file:
+      path: /home/nkjs/fileModule.Test.txt
+      mode: ugo=r
+
+  - name: Deleted file
+    file:
+      path: /home/nkjs/fileModuleTest.txt
+      state: absent

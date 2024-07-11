@@ -1,0 +1,14 @@
+---
+- name: Install and Start service
+  hosts: localhost
+  become: yes
+  tasks:
+  - name: Installing nginx
+    yum:
+      name: nginx
+      state: present
+  - name: Start nginx
+    service:
+      name: nginx
+      state: started
+      enabled: true # To keep service running on reboot
