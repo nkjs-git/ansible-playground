@@ -1,0 +1,25 @@
+1. Ping the remote machines 
+    # ansible <host> -m ping
+        Where <host> can be a single IP address, group of hosts from hosts file, all or localhost
+
+2. Get storage details on machines
+    # ansible apps -m command -a "df -h"
+
+3. Copy file from local to remote
+    # ansible apps -m copy -a "src=~/test.txt dest=/home/azureuser mode=0766" -b --ask-become-pass
+        Where 
+            -a is arguments for a perticular module used 
+            -b is become: true
+            --ask-become-pass will ask for root user password
+
+4. Strat nginx service
+    # ansible apps -m service -a "name=nginx state=started"
+
+5. Execute script on the remote server
+    # ansible apps -m shell -a "/home/azureuser/test.sh"
+
+6. Get memory space utilization on remote server
+    # ansible all -m command -a "free -h"
+
+7. Install nginx on remote servers
+    # ansible apps -m apt -a "name=nginx state=present"

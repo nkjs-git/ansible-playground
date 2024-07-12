@@ -1,17 +1,35 @@
+# List all the hosts added in inventory
 ansible-inventory -l
 
-# ansible-playbook 
-
+# Run a playbook with hosts added under /etc/ansible/hosts file
 ansible-playbook <playbook>
 
+# Switch user on linux to <username>
 su - <username>
 
+# Add user
 sudo adduser <username>
 
+# Delete user
 sudo userdel <username>
 
+# Add group
 sudo addgroup <groupname>
 
+# Add user to a group
 sudo adduser <username> <groupname>
 
+# Change permission for a file
 sudo chmod u+x <filename>
+
+# Ping adhoc command
+ansible all -m ping
+
+# Install nginx on hosts
+ansible all -m apt -a "name=nginx state=present"
+
+# Create ansible roles
+ansible-galaxy init <role-name>
+
+Copy files from VM to local machine
+scp -r <VM-username>@<VM-IP/Hostname>:/etc/ansible/roles/ D:\ansible-roles

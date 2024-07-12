@@ -1,0 +1,20 @@
+---
+# tasks file for nginx-role
+- name: Install "{{ service_name }}"
+  apt:
+    name: "{{ service_name }}"
+    state: present
+  become: yes
+
+- name: Custom HTML file
+  copy:
+    src: index.html
+    dest: /usr/share/nginx/html
+  become: yes
+
+- name: Start "{{ service_name  }}" service
+  service:
+    name: "{{ service_name }}"
+    state: started
+    enabled: true
+  become: yes

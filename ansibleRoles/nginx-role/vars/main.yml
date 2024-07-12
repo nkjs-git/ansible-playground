@@ -1,0 +1,3 @@
+---
+# vars file for nginx-role
+service_name: nginx

@@ -1,0 +1,12 @@
+---
+- name: Download files
+  hosts: apps
+  become: yes
+  tasks:
+  - name: Download file
+    get_url:
+      url: https://github.com/nkjs-git/ansible-playground.git
+      dest: /home/azureuser/
+      owner: azureuser
+      group: azureuser
+      mode: ugo=rw

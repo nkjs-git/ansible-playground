@@ -1,0 +1,11 @@
+---
+# tasks file for firewall-role
+- name: Enabled firewall for nginx
+  firewalld:
+    # service: http
+    port: 80/tcp
+    state: enabled
+    permanent: true
+  become: yes
+  when: ansible_os_family == "Debian"
+  notify: Reload Firewall

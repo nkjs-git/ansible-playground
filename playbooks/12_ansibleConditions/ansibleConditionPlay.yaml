@@ -1,0 +1,20 @@
+---
+- name: Install Httpd
+  hosts: apps
+  become: yes
+  tasks:
+  - name: Install Httpd on RedHat
+    yum:
+      name: httpd
+      state: present
+    when: ansible_os_family == "RedHat"
+
+  - name: Install apache2 on Ubunutu
+    apt:
+      name: apache2
+      state: present
+    when: ansible_os_family == "Debian"
+
+# Here ansible_os_family is a default variable of ansible host.
+# To know about all default variables you can use command
+# ansible apps -m setup

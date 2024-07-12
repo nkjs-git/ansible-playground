@@ -1,0 +1,16 @@
+---
+- name: Firewall change
+  hosts: apps
+  become: yes
+  tasks:
+  - name: Enable a service in firewalld
+    firewalld:
+      # service: nginx # Only known services are identifiable from name. Else we need to use port
+      port: 80/tcp 
+      permanent: true
+      state: enabled
+
+  - name: Enable a service in firewalld
+    service:
+      name: firewalld # To apply the firewall changes
+      state: reloaded

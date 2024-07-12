@@ -1,0 +1,16 @@
+---
+- name: Create users on remote
+  hosts: apps
+  become: yes
+  tasks:
+  - name: Create user
+    user: 
+      name: "{{ item }}"
+      comment: New user "{{ item }}"
+      shell: /bin/bash  # Default shell for the user
+      home: /home/testu # Default home dir for the user
+      group: testusergrp,QA
+    loop:
+    - naveen
+    - kumar
+    - jain
