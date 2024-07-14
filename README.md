@@ -10,9 +10,9 @@ The 'ansible-lab-setup/azureVMSetup' folder consists of terraform config file wh
 
 Go through the terraform and update the configs according to your choice and run below commands to create infra on VM
 
-  terraform init -> To install required plugins 
-  terraform plan -> To verify the resources which will be created
-  terraform apply -> To create resource on azure
+  #### terraform init -> To install required plugins 
+  #### terraform plan -> To verify the resources which will be created
+  #### terraform apply -> To create resource on azure
 
 Post apply the resources will be created in your azure subscription.
 
@@ -28,7 +28,7 @@ To enabled the passwordless authentication between two node created, login to co
 
 To test the ansible playground created lets run below command to ping all the hosts in the playground.
 
-  ansible all -m ping
+  #### ansible all -m ping
 
 You should see a pong response from the managed host that has been added in inventory file.
 
@@ -45,5 +45,5 @@ You can try few adhoc commands mentioned in file under adhoc-commands folder
 Go through the roles available under ansibleRoles which are basically created to install nginx and to update firewall for it.
 
 
-Happy learning!!!!
+##### Happy learning!!!!
 
