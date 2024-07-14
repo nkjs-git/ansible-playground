@@ -1,15 +1,16 @@
+# Ref: https://www.devopsschool.com/blog/terraform-example-code-for-create-azure-linux-windows-vm-with-file-remote-exec-local-exec-provisioner/
+
 provider "azurerm" {
   features {}
 }
 
-# Ref: https://www.devopsschool.com/blog/terraform-example-code-for-create-azure-linux-windows-vm-with-file-remote-exec-local-exec-provisioner/
 
 resource "azurerm_resource_group" "myterraformgroup" {
     name     = var.rg_name
     location = var.rg_location
 
     tags = {
-        environment = "Terraform Demo"
+        environment = "nkjs-test"
     }
 }
 
@@ -21,7 +22,7 @@ resource "azurerm_virtual_network" "myterraformnetwork" {
     resource_group_name = azurerm_resource_group.myterraformgroup.name
 
     tags = {
-        environment = "Terraform Demo"
+        environment = "nkjs-test"
     }
 }
 
@@ -43,7 +44,7 @@ resource "azurerm_public_ip" "control-node-ip" {
     allocation_method            = "Dynamic"
 
     tags = {
-        environment = "Terraform Demo"
+        environment = "nkjs-test"
     }
 }
 
@@ -66,7 +67,7 @@ resource "azurerm_network_security_group" "control-node-nsg" {
     }
 
     tags = {
-        environment = "Terraform Demo"
+        environment = "nkjs-test"
     }
 }
 
@@ -84,7 +85,7 @@ resource "azurerm_network_interface" "control-node-nic" {
     }
 
     tags = {
-        environment = "Terraform Demo"
+        environment = "nkjs-test"
     }
 }
 
@@ -113,7 +114,7 @@ resource "azurerm_storage_account" "mystorageaccount" {
     account_replication_type    = "LRS"
 
     tags = {
-        environment = "Terraform Demo"
+        environment = "nkjs-test"
     }
 }
 
@@ -150,11 +151,11 @@ resource "azurerm_linux_virtual_machine" "control-node-vm" {
     }
 
     computer_name  = var.control_node_name
-    admin_username = "azureuser"
+    admin_username = var.vm_admin_username
     disable_password_authentication = true
 
     admin_ssh_key {
-        username       = "azureuser"
+        username       = var.vm_admin_username
         public_key     = file("~/.ssh/id_rsa.pub")
     }
 
@@ -163,22 +164,17 @@ resource "azurerm_linux_virtual_machine" "control-node-vm" {
     }
 
     tags = {
-        environment = "Terraform Demo"
+        environment = "nkjs-test"
     }
 	    
 	connection {
         host = self.public_ip_address
-        user = "azureuser"
+        user = var.vm_admin_username
         type = "ssh"
         private_key = "${file("~/.ssh/id_rsa")}"
         timeout = "4m"
         agent = false
     }
-	
-	# provisioner "file" {
-    #     source = "example_file.txt"
-    #     destination = "/tmp/example_file.txt"
-    # }
 
     provisioner "remote-exec" {
         inline = [
@@ -191,9 +187,6 @@ resource "azurerm_linux_virtual_machine" "control-node-vm" {
         ]
     }
 	
-	# provisioner "local-exec" {
-    # command = "deploy.bat"
-	# }
 }
 
 
@@ -206,7 +199,7 @@ resource "azurerm_public_ip" "managedVMIP01" {
     allocation_method            = "Dynamic"
 
     tags = {
-        environment = "Terraform Demo"
+        environment = "nkjs-test"
     }
 }
 
@@ -224,7 +217,7 @@ resource "azurerm_network_interface" "managedNodeNIC01" {
     }
 
     tags = {
-        environment = "Terraform Demo"
+        environment = "nkjs-test"
     }
 }
 
@@ -256,27 +249,19 @@ resource "azurerm_linux_virtual_machine" "managedVM01" {
     }
 
     computer_name  = var.managed_node_name01
-    admin_username = "azureuser"
-    disable_password_authentication = true
-
-    admin_ssh_key {
-        username       = "azureuser"
-        public_key     = file("~/.ssh/id_rsa.pub")
-    }
-
-    # boot_diagnostics {
-    #     storage_account_uri = azurerm_storage_account.mystorageaccount.primary_blob_endpoint
-    # }
+    admin_username = var.vm_admin_username
+    admin_password = var.vm_admin_password
+    disable_password_authentication = false
 
     tags = {
-        environment = "Terraform Demo"
+        environment = "nkjs-test"
     }
 	    
 	connection {
         host = self.public_ip_address
-        user = "azureuser"
+        user = var.vm_admin_username
+        password = var.vm_admin_password
         type = "ssh"
-        private_key = "${file("~/.ssh/id_rsa")}"
         timeout = "4m"
         agent = false
     }
@@ -284,6 +269,8 @@ resource "azurerm_linux_virtual_machine" "managedVM01" {
     provisioner "remote-exec" {
         inline = [
             "sudo apt update -y",
+            "sudo sed -i 's/#$nrconf{restart} = '\"'\"'i'\"'\"';/$nrconf{restart} = '\"'\"'a'\"'\"';/g' /etc/needrestart/needrestart.conf",
+            # Above command will avoid pop-up on ubuntu 22.04 CLI asking for service restart due to reason "Daemons using outdated libraries"
             "sudo apt install python3-pip -y",
             "python3 --version",
             "pip --version"

@@ -1,8 +1,23 @@
 # List all the hosts added in inventory
 ansible-inventory -l
 
+# Validate the playbook for any syntax error
+ansible-playbook --syntax-check <playbook>
+
 # Run a playbook with hosts added under /etc/ansible/hosts file
 ansible-playbook <playbook>
+
+# To dry-run playbook 
+ansible-playbook playbook.yml --check
+
+# To run playbook in verbose mode
+ansible-playbook playbook.yml -v #-vv or -vvv
+
+# List all the tasks defined in playbook
+ansible-playbook playbook.yml --list-tasks
+
+# Get the info about an ansible module
+ansible-doc <module-name>
 
 # Switch user on linux to <username>
 su - <username>

@@ -72,3 +72,13 @@ variable "managed_node_size01" {
     type = string
     default = "Standard_DS2_v2"
 }
+
+variable "vm_admin_username" {
+    type = string
+    default = "azureuser"
+}
+
+variable "vm_admin_password" {
+    type = string
+    default = "Password1234!"
+}
