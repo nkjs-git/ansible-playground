@@ -1,0 +1,55 @@
+    1  sudo yum update -- Work
+    2  sudo yum install ansible -- Didn't Work
+    3  sudo rpm -i epel-release-latest-7.noarch.rpm -- DW
+    4  cat /etc/os-release
+    5  dnf install ansible-core -- DW
+    6  sudo dnf install ansible-core -y -- W
+    7  ansible --version -- W
+    8  pip
+    9  python
+   10  sudo dnf install python3-pip -y -- W 
+   11  pip --version
+   12  python --version
+   13  history
+
+
+   -- After managed node is created
+
+   15  ssh-keygen
+   17  cd /home/adminuser/.ssh/
+   18  ls
+   19  ssh-copy-id adminuser@10.0.1.5 (will ask for password and -y)
+   21  ssh adminuser@10.0.1.5
+
+-- Run a playbook
+
+    2. mkdir ansibleAutomation & cd ansibleAutomation/
+       vi inventory
+        with below content 
+        [all]
+        10.0.1.5
+        save and exit :wq!
+    3  ls
+    5  ansible -i . all -m ping
+    8  touch nginx.yaml
+   11  vi nginx.yaml
+   12  ansible-playbook -i . nginx.yaml
+
+-- Validate nginx installation on Ubuntu server
+
+ service nginx status
+
+
+ -- Managed node commands
+
+     1  cat /etc/os-release
+    2  sudo apt update
+    3  sudo apt install python3-pip
+    4  python --version
+    5  sudo apt install python3-pip
+    6  python3 --version
+    7  pip --version
+    8  service status nginx
+    9  service nginx status
+   10  curl localhost:8080
+   11  curl localhost:80

@@ -1,0 +1,16 @@
+---
+- name: Check Apache HTTPD status
+  hosts: cent
+  become: true
+  tasks:
+    - name: Check if httpd service is running
+      systemd:
+        name: httpd
+        state: started
+      register: httpd_status
+
+    - name: Display the HTTPD status
+      debug:
+        msg: >
+          Apache HTTPD service is 
+          {{ 'running' if httpd_status.state == 'started' else 'not running' }}.

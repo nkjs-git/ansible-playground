@@ -1,11 +1,12 @@
 # List all the hosts added in inventory
-ansible-inventory -l
+ansible-inventory --list
 
 # Validate the playbook for any syntax error
 ansible-playbook --syntax-check <playbook>
 
 # Run a playbook with hosts added under /etc/ansible/hosts file
 ansible-playbook <playbook>
+ansible-playbook <playbook> -h <path-to-hosts-file>
 
 # To dry-run playbook 
 ansible-playbook playbook.yml --check

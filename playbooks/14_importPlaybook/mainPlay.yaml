@@ -1,0 +1,9 @@
+---
+- name: Run playbook from a playbook
+  hosts: all
+  tasks:
+  - name: Echo msg
+    command: echo "Hello world!!"
+   
+- name: Run ping
+  import_playbook: ping.yaml

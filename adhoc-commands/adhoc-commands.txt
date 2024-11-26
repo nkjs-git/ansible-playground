@@ -2,6 +2,9 @@
     # ansible <host> -m ping
         Where <host> can be a single IP address, group of hosts from hosts file, all or localhost
 
+    # ansible all -m ping -i hosts
+        Where hosts is a host file overriden at runtime
+
 2. Get storage details on machines
     # ansible apps -m command -a "df -h"
 
